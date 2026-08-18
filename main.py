@@ -99,6 +99,20 @@ class Bank:
                     print("Amount withdrew successfully")
 
 
+
+    def showdetails(self):
+            accNumber = input("Please tell your account number :-")
+            pin = input("Please tell your pin aswell :-")
+
+            userdata = [i for i in Bank.data if i['accountNo.'] == accNumber and i['pin'] == pin]
+            print("Your information are :\n")
+
+            for i in userdata[0]:
+                print(f"{i} : {userdata[0][i]}")
+
+
+
+
 user = Bank()
 print("Press 1 for Creating an Account")
 print("Press 2 for Depositing the money in the bank")
@@ -119,3 +133,5 @@ if check == 2:
 if check == 3:
     user.withdrawtmoney()
 
+if check == 4:
+    user.showdetails()
