@@ -5,7 +5,15 @@
         "email": "nishant@gmail.com",
         "pin": "1111",
         "accountNo.": "1234",
-        "balance": 8000
+        "balance": 9000,
+        "history": [
+            {
+                "type": "Deposit",
+                "amount": 1000,
+                "balance_after": 9000,
+                "timestamp": "2026-08-18 14:05:49"
+            }
+        ]
     },
     {
         "name": "Tushar",
@@ -22,5 +30,21 @@
         "pin": "1234",
         "accountNo.": "0032425034",
         "balance": 4000
+    },
+    {
+        "name": "Sahil Wasankar",
+        "age": 23,
+        "email": "sahil@gamil.com",
+        "pin": "1234",
+        "accountNo.": "1733601247",
+        "balance": 500,
+        "history": [
+            {
+                "type": "Initial Deposit",
+                "amount": 500,
+                "balance_after": 500,
+                "timestamp": "2026-08-18 14:07:15"
+            }
+        ]
     }
 ]
