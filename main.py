@@ -28,10 +28,8 @@ class Bank:
 
     @classmethod
     def __accountgenerate(cls):
-        alpha = random.choices(string.ascii_letters,k=3)
-        num = random.choices(string.digits,k=3)
-        spchar = random.choices("!@#$%^&*",k=1)
-        id = alpha + num + spchar
+        num = random.choices(string.digits,k=10)
+        id = num 
         random.shuffle(id)
         return "".join(id)
 
@@ -42,7 +40,7 @@ class Bank:
             "name": input("Tell your Name :- "),
             "age": int(input("Tell your Age :- ")),
             "email": input("Tell your Email :- "),
-            "pin": int(input("Tell your 4 number Pin :- ")),
+            "pin": input("Tell your 4 number Pin :- "),
             "accountNo.": Bank.__accountgenerate(),
             "balance": 0 
         }
@@ -57,6 +55,27 @@ class Bank:
             Bank.data.append(info)
 
             Bank.__update()
+
+
+    def depositmoney(self):
+        accNumber = input("Please tell your account number :-")
+        pin = input("Please tell your pin aswell :-")
+
+        userdata = [i for i in Bank.data if i['accountNo.'] == accNumber and i['pin'] == pin]
+
+        if not userdata:
+            print("Sorry no data found")
+
+        else:
+            amount = int(input("How much you want to deposit :-"))
+            if amount > 10000 or amount < 0:
+                print("Sorry the Amount is too much you can deposite below 10,000 and above 0")
+
+            else:
+                print(userdata)
+                userdata[0]['balance'] += amount
+                Bank.__update()
+                print("Amount deposited successfully")
 
 
 
@@ -74,3 +93,6 @@ check = int(input("Tell your Response :- "))
 
 if check == 1:
     user.createaccount()
+
+if check == 2:
+    user.depositmoney()
