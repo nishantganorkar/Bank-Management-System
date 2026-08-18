@@ -36,25 +36,38 @@ class Bank:
 
 
     def createaccount(self):
+        name = input("Tell your Name :- ")
+        age = int(input("Tell your Age :- "))
+
+        if age < 18:
+            print("Sorry, you cannot create an account. Age must be 18 or above.")
+            return
+
+        email = input("Tell your Email :- ")
+        pin = input("Tell your 4 number Pin :- ")
+
+        if len(pin) != 4:
+            print("Sorry, PIN must be exactly 4 digits.")
+            return
+
         info = {
-            "name": input("Tell your Name :- "),
-            "age": int(input("Tell your Age :- ")),
-            "email": input("Tell your Email :- "),
-            "pin": input("Tell your 4 number Pin :- "),
+            "name": name,
+            "age": age,
+            "email": email,
+            "pin": pin,
             "accountNo.": Bank.__accountgenerate(),
-            "balance": 0 
+            "balance": 0
         }
-        if info['age'] < 18 or len(str(info['pin'])) != 4:
-            print("Sorry you connot create your account")
-        else:
-            print("Account has been created successfully")
-            for i in info:
-                print(f"{i} : {info[i]}")
-            print("Please note down your account number")
 
-            Bank.data.append(info)
+        print("Account has been created successfully")
 
-            Bank.__update()
+        for i in info:
+            print(f"{i} : {info[i]}")
+
+        print("Please note down your account number")
+
+        Bank.data.append(info)
+        Bank.__update()
 
 
     def depositmoney(self):
