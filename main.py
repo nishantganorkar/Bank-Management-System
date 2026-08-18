@@ -6,25 +6,26 @@ from pathlib import Path
 
 
 class Bank:
-    database = 'data.json'
+    database = Path(__file__).parent / 'data.json'
     data = []
 
-    try: 
-        if Path(database).exists():
+    try:
+        if database.exists():
             with open(database) as fs:
-                data = json.loads(fs.read())
+                data = json.load(fs)
         else:
-            print("No such file exist")
+            print("No such file exists")
 
     except Exception as err:
-        print(f"An exception occured as {err}")
-
+        print(f"An exception occurred as {err}")
 
     @classmethod
     def __update(cls):
-        with open(cls.database,'w') as fs:
-            fs.write(json.dumps(Bank.data))
+        with open(cls.database, 'w') as fs:
+            json.dump(cls.data, fs, indent=4)
 
+        print("Data saved successfully!")
+        print("Saved file:", cls.database)
 
     @classmethod
     def __accountgenerate(cls):
@@ -71,23 +72,30 @@ class Bank:
 
 
     def depositmoney(self):
-        accNumber = input("Please tell your account number :-")
-        pin = input("Please tell your pin aswell :-")
+        accNumber = input("Please tell your account number :- ")
+        pin = input("Please tell your pin aswell :- ")
 
-        userdata = [i for i in Bank.data if i['accountNo.'] == accNumber and i['pin'] == pin]
+        userdata = [
+            i for i in Bank.data
+            if i['accountNo.'] == accNumber and i['pin'] == pin
+        ]
 
         if not userdata:
             print("Sorry no data found")
+            return
 
-        else:
-            amount = int(input("How much you want to deposit :-"))
-            if amount > 10000 or amount < 0:
-                print("Sorry the Amount is too much you can deposite below 10,000 and above 0")
+        amount = int(input("How much you want to deposit :- "))
 
-            else:
-                userdata[0]['balance'] += amount
-                Bank.__update()
-                print("Amount deposited successfully")
+        if amount > 10000 or amount <= 0:
+            print("Sorry the amount should be between 1 and 10,000")
+            return
+
+        userdata[0]['balance'] += amount
+
+        Bank.__update()
+
+        print("Amount deposited successfully")
+        print(f"Current Balance : {userdata[0]['balance']}")
 
 
 
@@ -126,6 +134,55 @@ class Bank:
 
 
 
+    def updatedetails(self):
+            accNumber = input("Please tell your account number :-")
+            pin = input("Please tell your pin aswell :-")
+            
+            userdata = [i for i in Bank.data if i['accountNo.'] == accNumber and i['pin'] == pin]
+
+            if userdata == False:
+                print("No such user found")
+
+            else:
+                print("\nYou cannot change the age, account number, and balance ")
+
+                print("Fill the details for change or leave it empty if no change")
+
+                newdata ={
+                    "name": input("Please tell new name or press enter :- "),
+                    "email": input("Please tell your new Email or press enter to skip :- "),
+                    "pin": input("Enter new pin or press enter to skip :- ")
+                }
+
+                if newdata["name"] == "":
+                    newdata["name"] = userdata[0]["name"]
+
+                if newdata["email"] == "":
+                    newdata["email"] = userdata[0]["email"]
+
+                if newdata["pin"] == "":
+                    newdata["pin"] = userdata[0]["pin"]
+
+                newdata['age'] = userdata[0]['age']
+                newdata['accountNo.'] = userdata[0]['accountNo.']
+                newdata['balance'] = userdata[0]['balance']
+
+                if type(newdata['pin']) == str:
+                    newdata['pin'] == int(newdata['pin'])
+
+                for i in newdata:
+                    if newdata[i] == userdata[0][i]:
+                        continue
+                    else:
+                        userdata[0][i] = newdata[i]
+
+                Bank.__update()
+                print("Details updates successfully")
+            
+
+
+
+
 user = Bank()
 print("Press 1 for Creating an Account")
 print("Press 2 for Depositing the money in the bank")
@@ -148,3 +205,6 @@ if check == 3:
 
 if check == 4:
     user.showdetails()
+
+if check == 5:
+    user.updatedetails()

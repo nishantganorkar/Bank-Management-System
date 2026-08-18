@@ -1,1 +1,26 @@
-[{"name": "Nishant", "age": 22, "email": "nishant@gmail.com", "pin": "1234", "accountNo.": "1234", "balance": 1000}, {"name": "Tushar", "age": 20, "email": "Tushar@gmail.com", "pin": "5678", "accountNo.": "y#43E1L", "balance": 0}, {"name": "Mahesh", "age": 25, "email": "mahesh@gmail.com", "pin": "1122", "accountNo.": "9923285026", "balance": 0}]
+[
+    {
+        "name": "Nishant Ganorkar",
+        "age": 22,
+        "email": "nishant@gmail.com",
+        "pin": "1111",
+        "accountNo.": "1234",
+        "balance": 8000
+    },
+    {
+        "name": "Tushar",
+        "age": 20,
+        "email": "Tushar@gmail.com",
+        "pin": "5678",
+        "accountNo.": "y#43E1L",
+        "balance": 5000
+    },
+    {
+        "name": "Mahesh",
+        "age": 25,
+        "email": "mahesh@gmail.com",
+        "pin": "1122",
+        "accountNo.": "9923285026",
+        "balance": 5000
+    }
+]
