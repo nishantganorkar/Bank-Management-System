@@ -4,7 +4,6 @@ import string
 from pathlib import Path
 
 
-
 class Bank:
     database = Path(__file__).parent / 'data.json'
     data = []
@@ -19,13 +18,14 @@ class Bank:
     except Exception as err:
         print(f"An exception occurred as {err}")
 
+
     @classmethod
     def __update(cls):
         with open(cls.database, 'w') as fs:
             json.dump(cls.data, fs, indent=4)
 
         print("Data saved successfully!")
-        print("Saved file:", cls.database)
+
 
     @classmethod
     def __accountgenerate(cls):
@@ -69,6 +69,7 @@ class Bank:
 
         Bank.data.append(info)
         Bank.__update()
+
 
 
     def depositmoney(self):
@@ -133,7 +134,6 @@ class Bank:
 
 
 
-
     def updatedetails(self):
             accNumber = input("Please tell your account number :-")
             pin = input("Please tell your pin aswell :-")
@@ -178,9 +178,26 @@ class Bank:
 
                 Bank.__update()
                 print("Details updates successfully")
-            
 
 
+
+    def delete(self):
+            accNumber = input("Please tell your account number :-")
+            pin = input("Please tell your pin aswell :-")
+                        
+            userdata = [i for i in Bank.data if i['accountNo.'] == accNumber and i['pin'] == pin]
+
+            if userdata == False:
+                print("Sorry no such data exist")
+            else:
+                check = input("Press Y if you actually want to delete the account or press N :-")
+                if check == 'n' or check == 'N':
+                    print("Bypassed")
+                else:
+                    index = Bank.data.index(userdata[0])
+                    Bank.data.pop(index)
+                    print("Account deleted successfully")
+                    Bank.__update()
 
 
 user = Bank()
@@ -190,7 +207,6 @@ print("Press 3 Withdrawing the money")
 print("Press 4 for Details")
 print("Press 5 for Updating the details")
 print("Press 6 for Deleting your Account")
-
 
 check = int(input("Tell your Response :- "))
 
@@ -208,3 +224,6 @@ if check == 4:
 
 if check == 5:
     user.updatedetails()
+
+if check == 6:
+    user.delete()
