@@ -72,12 +72,31 @@ class Bank:
                 print("Sorry the Amount is too much you can deposite below 10,000 and above 0")
 
             else:
-                print(userdata)
                 userdata[0]['balance'] += amount
                 Bank.__update()
                 print("Amount deposited successfully")
 
 
+
+    def withdrawtmoney(self):
+            accNumber = input("Please tell your account number :-")
+            pin = input("Please tell your pin aswell :-")
+    
+            userdata = [i for i in Bank.data if i['accountNo.'] == accNumber and i['pin'] == pin]
+    
+            if not userdata:
+                print("Sorry no data found")
+    
+            else:
+                amount = int(input("How much you want withdraw :-"))
+                if userdata[0]['balance'] < amount:
+                    print("Sorry you don't have that much money")
+        
+    
+                else:
+                    userdata[0]['balance'] -= amount
+                    Bank.__update()
+                    print("Amount withdrew successfully")
 
 
 user = Bank()
@@ -96,3 +115,7 @@ if check == 1:
 
 if check == 2:
     user.depositmoney()
+
+if check == 3:
+    user.withdrawtmoney()
+
